@@ -21,3 +21,11 @@
 * [GitHub's Learning Lab](https://lab.github.com/)
 * [Education community forum](https://education.github.community/)
 * [GitHub community forum](https://github.community/)
+
+## Successful Program Run
+
+![Screenshot of successful program run](/Assignments/assignment1/successfulProgramRun.png)
+
+## Textbook Screenshot
+
+![Screenshot of the textbook welcome page](/Assignments/assignment1/textbookScreenshotVSCode.png)
