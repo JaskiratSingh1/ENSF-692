@@ -18,67 +18,27 @@ class Sensor:
     # Must include a constructor that uses default values
     # You do not need to provide commenting above the constructor
     def __init__(self):
-        self.traffic_light_color = "green"
-        self.pedestrian_is_detected = False
-        self.vehicle_is_detected = False
+        pass
 
     # Replace these comments with your function commenting
-    def update_status(self, obstacle_type, new_value): # You may decide how to implement the arguments for this function
-        if obstacle_type == "light":
-            self.traffic_light_color = new_value
-        elif obstacle_type == "pedestrian":
-            self.pedestrian_is_detected = new_value
-        elif obstacle_type == "vehicle":
-            self.vehicle_is_detected = new_value
+    def update_status(): # You may decide how to implement the arguments for this function
+        pass
+
 
 
 # The sensor object should be passed to this function to print the action message and current status
 # Replace these comments with your function commenting
 def print_message(sensor):
-    if sensor.pedestrian_is_detected or sensor.vehicle_is_detected or (sensor.traffic_light_color == "red") : 
-        print("\nSTOP\n")
-
-        
+    pass
 
 
-# This function is used to validate the user input and returns True if the input is valid
-# The function takes the user input and a set of allowable inputs
-def validate_user_input(user_input):
-    
-    return False
 
 # Complete the main function below
 def main():
     print("\n***ENSF 692 Car Vision Detector Processing Program***\n")
 
-    # Creating new Sensor object
-    car_sensor = Sensor()
-    # Initializing user choice variable to 1 for the while loop
-    user_vision_change_input = ""
 
-    while user_vision_change_input != "0":
-        # Ask the user for changes in vision input
-        print("Are there changes detected in the vision input?")
-        user_vision_change_input = input("Select 1 for light, 2 for pedestrian, 3 for vehicle, or 0 to end the program: ")
 
-        # If there is a light change
-        if user_vision_change_input == "1":
-            user_light_input = input("What change has been identified?: ")
-            # Sanitize data with red green yellow
-            car_sensor.update_status(obstacle_type = "light", new_value = user_light_input)
-
-        elif user_vision_change_input == "2":
-            user_pedestrian_input = input("What change has been identified?: ")
-            # Sanitize data with true or false
-            car_sensor.update_status("pedestrian", user_pedestrian_input)
-
-        elif user_vision_change_input == "3":
-            user_vehicle_input = input("What change has been identified?: ")
-            # Sanitize data with true or false
-            car_sensor.update_status("vehicle", user_vehicle_input)
-
-        if car_sensor.pedestrian_is_detected == True:
-            print_message(car_sensor)
 
 
 # Conventional Python code for running main within a larger program
