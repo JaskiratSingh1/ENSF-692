@@ -38,7 +38,7 @@ def print_message(sensor):
     if sensor.pedestrian_is_detected or sensor.vehicle_is_detected or (sensor.traffic_light_color == "red") : 
         print("\nSTOP\n")
 
-    
+        
 
 
 # This function is used to validate the user input and returns True if the input is valid
