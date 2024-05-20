@@ -27,16 +27,38 @@ class Sensor:
         if obstacle_type == "light":
             self.traffic_light_color = new_value
         elif obstacle_type == "pedestrian":
-            self.pedestrian_is_detected = new_value
+            if new_value == "yes":
+                self.pedestrian_is_detected = True
+            elif new_value == "no":
+                self.pedestrian_is_detected = False
         elif obstacle_type == "vehicle":
-            self.vehicle_is_detected = new_value
+            if new_value == "yes":
+                self.pedestrian_is_detected = True
+            elif new_value == "no":
+                self.pedestrian_is_detected = False
 
 
 # The sensor object should be passed to this function to print the action message and current status
 # Replace these comments with your function commenting
-def print_message(sensor):
-    if sensor.pedestrian_is_detected or sensor.vehicle_is_detected or (sensor.traffic_light_color == "red") : 
+def print_message(self):
+    #Print a message saying stop if there is a red light, pedestrian, or vehicle detected
+    if self.pedestrian_is_detected or self.vehicle_is_detected or (self.traffic_light_color == "red"): 
         print("\nSTOP\n")
+    #If the light is yellow then print a message saying caution
+    elif self.traffic_light_color == "yellow":
+        print("\nCAUTION\n")
+
+    if self.pedestrian_is_detected:
+        if self.vehicle_is_detected:
+            print("Light =", self.traffic_light_color, ", Pedestrian = yes", ", Vehicle = yes\n")
+        else:
+            print("Light =", self.traffic_light_color, ", Pedestrian = yes", ", Vehicle = no\n")
+    else:
+        if self.vehicle_is_detected:
+            print("Light =", self.traffic_light_color, ", Pedestrian = no", ", Vehicle = yes\n")
+        else:
+            print("Light =", self.traffic_light_color, ", Pedestrian = no", ", Vehicle = no\n")
+
 
         
 
@@ -76,9 +98,8 @@ def main():
             user_vehicle_input = input("What change has been identified?: ")
             # Sanitize data with true or false
             car_sensor.update_status("vehicle", user_vehicle_input)
-
-        if car_sensor.pedestrian_is_detected == True:
-            print_message(car_sensor)
+        
+        print_message(car_sensor)
 
 
 # Conventional Python code for running main within a larger program
