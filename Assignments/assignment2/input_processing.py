@@ -153,7 +153,7 @@ def main():
             car_sensor.update_status("vehicle", user_vehicle_input)
         
         # Print update message if user input is valid
-        if user_vision_change_input in user_inputs:
+        if user_vision_change_input in ["1", "2", "3"]:
             print_message(car_sensor)
 
 
