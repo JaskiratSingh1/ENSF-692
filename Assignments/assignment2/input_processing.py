@@ -9,7 +9,7 @@
 # Remember to include your name and comments.
 
 
-
+import numpy
 # No global variables are permitted
 
 
