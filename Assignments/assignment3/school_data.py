@@ -18,7 +18,6 @@ enrollmentYears = ["2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020
 #(year, school, grade)
 data3DArray = np.array([year_2013, year_2014, year_2015, year_2016, year_2017, year_2018, year_2019, year_2020, year_2021, year_2022]).reshape((10,20,3))
 
-
 #Dictionary to get school name by given school code key
 schoolCodeDict = {schoolCodes[i]: schoolNames[i] for i in range(len(schoolCodes))}
 
@@ -28,7 +27,7 @@ schoolNameDict = {schoolNames[i]: schoolCodes[i] for i in range(len(schoolNames)
 # You may add your own additional classes, functions, variables, etc.
 
 class School:
-    
+
     def __init__(self):
         self.schoolName = ""
         self.schoolCode = ""
@@ -48,33 +47,41 @@ class School:
         enrollmentNumbers = []
         #loop through (i, schoolIndex, grade)
         for i in range(10):
-            enrollmentNumbers.append(data3DArray[i, self.schoolIndex, grade])
+            #If statement to deal with nan values
+            if not np.isnan(data3DArray[i, self.schoolIndex, grade]):
+                enrollmentNumbers.append(data3DArray[i, self.schoolIndex, grade])
         #Convert return type to int32 for print() function
-        return np.mean(enrollmentNumbers).astype(np.int32)
+        return str(np.mean(enrollmentNumbers).astype(np.int32))
 
     def getLowestEnrollment(self):
         totalEnrollmentNumbers = []
         #loop through (i, schoolIndex, j)
         for i in range(10):
             for j in range(3):
-                totalEnrollmentNumbers.append(data3DArray[i, self.schoolIndex, j])
+                #If statement to deal with nan values
+                if not np.isnan(data3DArray[i, self.schoolIndex, j]):
+                    totalEnrollmentNumbers.append(data3DArray[i, self.schoolIndex, j])
         #Convert return type to int32 for print() function
-        return np.min(totalEnrollmentNumbers).astype(np.int32)
+        return str(np.min(totalEnrollmentNumbers).astype(np.int32))
     
     def getHighestEnrollment(self):
         totalEnrollmentNumbers = []
         #loop through (i, schoolIndex, j)
         for i in range(10):
             for j in range(3):
-                totalEnrollmentNumbers.append(data3DArray[i, self.schoolIndex, j])
+                #If statement to deal with nan values
+                if not np.isnan(data3DArray[i, self.schoolIndex, j]):
+                    totalEnrollmentNumbers.append(data3DArray[i, self.schoolIndex, j])
         #Convert return type to int32 for print() function
-        return np.max(totalEnrollmentNumbers).astype(np.int32)
+        return str(np.max(totalEnrollmentNumbers).astype(np.int32))
     
     def printTotalEnrollments(self):
         for i in range(10):
             enrollmentSum = []
             for j in range(3):
-                enrollmentSum.append(data3DArray[i, self.schoolIndex, j])
+                #If statement to deal with nan values
+                if not np.isnan(data3DArray[i, self.schoolIndex, j]):
+                    enrollmentSum.append(data3DArray[i, self.schoolIndex, j])
             print("Total enrollment for " + enrollmentYears[i] + ": " + str(np.sum(enrollmentSum).astype(np.int32)))
         
     def getTotal10YearEnrollment(self):
@@ -83,7 +90,9 @@ class School:
         for i in range(10):
             enrollmentSum = []
             for j in range(3):
-                enrollmentSum.append(data3DArray[i, self.schoolIndex, j])
+                #If statement to deal with nan values
+                if not np.isnan(data3DArray[i, self.schoolIndex, j]):
+                    enrollmentSum.append(data3DArray[i, self.schoolIndex, j])
             total10YearEnrollment += np.sum(enrollmentSum)
         
         return str(total10YearEnrollment.astype(np.int32))
@@ -94,7 +103,9 @@ class School:
         for i in range(10):
             sumOfGradesEnrollment = 0
             for j in range(3):
-                sumOfGradesEnrollment += data3DArray[i, self.schoolIndex, j]
+                #If statement to deal with nan values
+                if not np.isnan(data3DArray[i, self.schoolIndex, j]):
+                    sumOfGradesEnrollment += data3DArray[i, self.schoolIndex, j]
             yearlyEnrollment.append(sumOfGradesEnrollment)
         return str(np.mean(yearlyEnrollment).astype(np.int32))
     
@@ -104,7 +115,9 @@ class School:
         for i in range(10):
             for j in range(3):
                 if data3DArray[i, self.schoolIndex, j] > 500:
-                    enrollmentsOver500.append(data3DArray[i, self.schoolIndex, j])
+                    #If statement to deal with nan values
+                    if not np.isnan(data3DArray[i, self.schoolIndex, j]):
+                        enrollmentsOver500.append(data3DArray[i, self.schoolIndex, j])
 
         if not enrollmentsOver500:
             print("No enrollments over 500.")
@@ -127,7 +140,15 @@ def getUserInput(message):
         except ValueError:
             print("Invalid school name or code!\n")
         
-
+def getTotalMeanByYear(year):
+    enrollmentNumbers = []
+    for i in range(20):
+        for j in range(3):
+            #If statement to deal with nan values
+            if not np.isnan(data3DArray[year, i, j]):
+                enrollmentNumbers.append(data3DArray[year, i, j])
+    #Convert return type to int32 for print() function
+    return str(np.mean(enrollmentNumbers).astype(np.int32))
 
 def main():
     print("ENSF 692 School Enrollment Statistics")
@@ -173,8 +194,9 @@ def main():
     # Print Stage 3 requirements here
     print("\n***General Statistics for All Schools***\n")
 
-    print("Mean enrollment in 2013: ")
-    print("Mean enrollment in 2022: ")
+    #
+    print("Mean enrollment in 2013: " + getTotalMeanByYear(enrollmentYears.index("2013")))
+    print("Mean enrollment in 2022: " + getTotalMeanByYear(enrollmentYears.index("2022")))
     print("Total graduating class of 2022: ")
     print("Highest enrollment for a single grade: ")
     print("Highest enrollment for a single grade: ")
