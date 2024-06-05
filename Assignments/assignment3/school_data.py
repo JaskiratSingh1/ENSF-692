@@ -1,5 +1,5 @@
 # school_data.py
-# AUTHOR NAME
+# AUTHOR NAME: Jaskirat Singh [Jazz]
 #
 # A terminal-based application for computing and printing statistics based on given input.
 # You must include the main listed below. You may add your own additional classes, functions, variables, etc. 
@@ -31,14 +31,13 @@ school_name_dict = {school_names[i]: school_codes[i] for i in range(len(school_n
 
 # Class to manage and compute various statistics for a chosen school
 class School:
-    # Constructor to initialize publiic identifying characteristics
     def __init__(self):
         self.school_name = ""
         self.school_code = ""
         self.school_index = -1
 
     """
-    Takes in a school name as a String, updates school details variables
+    Takes in a school name as a String, updates school details variables. No return.
     """
     def update_school_by_name(self, name):
         self.school_name = name
@@ -46,7 +45,7 @@ class School:
         self.school_index = school_names.index(self.school_name)
 
     """
-    Takes in a school code as a String, updates school details variables
+    Takes in a school code as a String, updates school details variables. No return.
     """
     def update_school_by_code(self, code):
         self.school_code = code
@@ -55,7 +54,7 @@ class School:
 
     """
     Takes grade as String and returns the mean of enrollment numbers for that grade 
-    as a String (converted from a floored int32)
+    as a String (converted from a floored int32).
     """
     def get_mean_enrollment(self, grade):
         enrollment_numbers = []
@@ -69,7 +68,7 @@ class School:
 
     """
     Calculates the lowest enrollment for the given school and returns the value 
-    as a String (converted from a floored int32)
+    as a String (converted from a floored int32).
     """
     def get_lowest_enrollment(self):
         total_enrollment_numbers = []
@@ -84,7 +83,7 @@ class School:
     
     """
     Calculates the highest enrollment for the given school and returns the value 
-    as a String (converted from a floored int32)
+    as a String (converted from a floored int32).
     """
     def get_highest_enrollment(self):
         total_enrollment_numbers = []
@@ -98,7 +97,7 @@ class School:
         return str(np.max(total_enrollment_numbers).astype(np.int32))
     
     """
-    Calculate the total enrollments accross all grades in a year and print it for all 10 years
+    Calculate the total enrollments accross all grades in a year and print it for all 10 years. No return.
     """
     def print_total_enrollments(self):
         # Loop through (i, school_index, j)
@@ -113,7 +112,7 @@ class School:
         
     """
     Calculates the total enrollment over the 10 eyars and returns it
-    as a String (converted from a floored int32)
+    as a String (converted from a floored int32).
     """
     def get_total_10_year_enrollment(self):
         total_10_year_enrollment = 0
@@ -130,7 +129,7 @@ class School:
     
     """
     Calculates the mean of the total enrollment over the 10 eyars and returns it
-    as a String (converted from a floored int32)
+    as a String (converted from a floored int32).
     """
     def get_mean_10_year_enrollment(self):
         yearly_enrollment = []
@@ -147,7 +146,7 @@ class School:
     
     """
     Creates a sub array for all the schools, conducts a masking operation
-    to obtain a list of data points larger than 500, and prints the median value
+    to obtain a list of data points larger than 500, and prints the median value. No return.
     """
     def print_large_enrollment_median(self):
         #Sub array view for schools
@@ -164,8 +163,8 @@ class School:
 """
 Takes in a print message as a String, asks the user for an input with the message.
 Checks to see if user input is valid, throws a ValueError on invalid input and 
-asks the user to try again
-Returns the sanitized user input
+asks the user to try again.
+Returns the sanitized user input.
 """
 def get_user_input(message):
     # Run loop until user enters valid input
@@ -187,7 +186,7 @@ def get_user_input(message):
 
 """
 Takes in a year as a String and calculates the mean of the enrollment numbers
-in that given year and returns it as a String (converted from a floored int32)
+in that given year and returns it as a String (converted from a floored int32).
 """
 def get_total_mean_by_year(year):
     enrollment_numbers = []
@@ -202,7 +201,7 @@ def get_total_mean_by_year(year):
 
 """
 Takes in a year as a String and calculates the size of the graduating class (grade 12)
-in that given year and returns it as a String (converted from a floored int32)
+in that given year and returns it as a String (converted from a floored int32).
 """
 def get_total_graduating_class_size(year):
     enrollment_numbers = []
@@ -216,7 +215,7 @@ def get_total_graduating_class_size(year):
 
 """
 Calculates the highest enrollment value and returns it as a 
-String (converted from a floored int32)
+String (converted from a floored int32).
 """
 def get_highest_enrollment_by_grade():
     highest_enrollment = 0
@@ -236,7 +235,7 @@ def get_highest_enrollment_by_grade():
 
 """
 Calculates the lowest enrollment value and returns it as a 
-String (converted from a floored int32)
+String (converted from a floored int32).
 """
 def get_lowest_enrollment_by_grade():
     #(year, school, grade) data_3D_array formatting
@@ -255,9 +254,7 @@ def get_lowest_enrollment_by_grade():
         
     return str(lowest_enrollment.astype(np.int32))
                 
-"""
-main() function for printing data, creating objects, and running the program loop
-"""
+
 def main():
     print("\nENSF 692 School Enrollment Statistics")
 
@@ -271,6 +268,7 @@ def main():
         user_input = get_user_input("\nPlease enter the high school name or school code (0 to exit program): ")
         if user_input == "0":
             break
+
         # Print Stage 2 requirements here
         print("\n***Requested School Statistics***\n")
 
