@@ -110,21 +110,16 @@ class School:
         return str(np.mean(yearlyEnrollment).astype(np.int32))
     
     def printLargeEnrollmentMedian(self):
-        enrollmentsOver500 = []
+        #Sub array view for schools
+        school_data = data3DArray[:, self.schoolIndex, :]
+        #Masking operation
+        large_enrollments = school_data[school_data > 500]
 
-        for i in range(10):
-            for j in range(3):
-                if data3DArray[i, self.schoolIndex, j] > 500:
-                    #If statement to deal with nan values
-                    if not np.isnan(data3DArray[i, self.schoolIndex, j]):
-                        enrollmentsOver500.append(data3DArray[i, self.schoolIndex, j])
-
-        if not enrollmentsOver500:
+        if len(large_enrollments) == 0:
             print("No enrollments over 500.")
         else:
-            print("For all enrollments over 500, the median value was: " + str(np.median(enrollmentsOver500).astype(np.int32)))
+            print("For all enrollments over 500, the median value was: " + str(np.median(large_enrollments).astype(np.int32)))
     
-
 
 def getUserInput(message):
     while True:
@@ -150,15 +145,57 @@ def getTotalMeanByYear(year):
     #Convert return type to int32 for print() function
     return str(np.mean(enrollmentNumbers).astype(np.int32))
 
+def getTotalGraduatingClassSize(year):
+    enrollmentNumbers = []
+    for i in range(20):
+        #If statement to deal with nan values
+        if not np.isnan(data3DArray[year, i, 2]):
+            enrollmentNumbers.append(data3DArray[year, i, 2])
+    #Convert return type to int32 for print() function
+    return str(np.sum(enrollmentNumbers).astype(np.int32))
+
+def getHighestEnrollmentByGrade():
+    #(year, school, grade)
+    highestEnrollment = 0
+
+    #Loop through all 10 years of data
+    for i in range(10):
+        #Loop through all 20 schools
+        for j in range(20):
+            ##Loop through all 3 grades
+            for k in range(3):
+                if not np.isnan(data3DArray[i, j, k]):
+                    if data3DArray[i, j, k] > highestEnrollment:
+                        highestEnrollment = data3DArray[i, j, k]
+        
+    return str(highestEnrollment.astype(np.int32))
+
+def getLowestEnrollmentByGrade():
+    #(year, school, grade)
+    #Initialize to very high number that will never be true
+    lowestEnrollment = 999999
+
+    #Loop through all 10 years of data
+    for i in range(10):
+        #Loop through all 20 schools
+        for j in range(20):
+            ##Loop through all 3 grades
+            for k in range(3):
+                if not np.isnan(data3DArray[i, j, k]):
+                    if data3DArray[i, j, k] < lowestEnrollment:
+                        lowestEnrollment = data3DArray[i, j, k]
+        
+    return str(lowestEnrollment.astype(np.int32))
+                
+
 def main():
     print("ENSF 692 School Enrollment Statistics")
 
     # Print Stage 1 requirements here
-    print("The shape of the array is", data3DArray.shape)
-    print("The dimention of the array is", data3DArray.ndim)
+    print("Shape of full data array:", data3DArray.shape)
+    print("Dimensions of full data array", data3DArray.ndim)
 
     # Prompt for user input
-    print(len(schoolCodes))
     user_input = getUserInput("Please enter the high school name or school code: ")
 
     # Print Stage 2 requirements here
@@ -197,9 +234,9 @@ def main():
     #
     print("Mean enrollment in 2013: " + getTotalMeanByYear(enrollmentYears.index("2013")))
     print("Mean enrollment in 2022: " + getTotalMeanByYear(enrollmentYears.index("2022")))
-    print("Total graduating class of 2022: ")
-    print("Highest enrollment for a single grade: ")
-    print("Highest enrollment for a single grade: ")
+    print("Total graduating class of 2022: " + getTotalGraduatingClassSize(enrollmentYears.index("2022")))
+    print("Highest enrollment for a single grade: " + getHighestEnrollmentByGrade())
+    print("Lowest enrollment for a single grade: " + getLowestEnrollmentByGrade())
 
 
 if __name__ == '__main__':
